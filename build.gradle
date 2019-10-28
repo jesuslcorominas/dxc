@@ -20,6 +20,27 @@ allprojects {
         jcenter()
         
     }
+
+    ext{
+        minSdk = 21
+        targetSdk = 28
+        buildToolsVersion = '29.0.2'
+        compileSdkVersion = 28
+
+        javaSourceCompatibility = JavaVersion.VERSION_1_8
+        javaTargetCompatibility = JavaVersion.VERSION_1_8
+
+        daggerVersion = '2.16'
+        gsonVersion = '2.8.6'
+        modelMapperVersion = '2.3.0'
+        retrofitVersion = '2.6.2'
+        okhttpVersion = '4.2.2'
+
+        junitVersion = '4.12'
+        junit4Version = '1.5'
+        mockitoVersion = '2.7.21'
+        robolectricVersion = '3.1.4'
+    }
 }
 
 task clean(type: Delete) {
