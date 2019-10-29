@@ -1,8 +1,3 @@
-// Para Dagger 2
-plugins {
-    id "net.ltgt.apt" version "0.10"
-}
-
 apply plugin: 'java-library'
 
 dependencies {

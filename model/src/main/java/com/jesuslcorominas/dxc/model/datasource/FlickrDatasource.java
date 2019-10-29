@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface FlickrDatasource extends Datasource {
 
-    void searchImages(String keywords, String apiKey, String apiSecret, SearchImagesSuccessCallback successCallback, FailureCallback failureCallback);
+    void searchPhotos(String keywords, String apiKey, SearchPhotosSuccessCallback successCallback, FailureCallback failureCallback);
 
-    void getImageDetail(String apiKey, String apiSecret, GetImageDetailSuccessCallback successCallback, FailureCallback failureCallback);
+    void getPhotoDetail(Photo photo, String apiKey, GetPhotoDetailSuccessCallback successCallback, FailureCallback failureCallback);
 
-    interface SearchImagesSuccessCallback {
+    interface SearchPhotosSuccessCallback {
         void onSuccess(List<Photo> photos);
     }
 
-    interface GetImageDetailSuccessCallback {
-        void onSuccess();
+    interface GetPhotoDetailSuccessCallback {
+        void onSuccess(Photo photo);
     }
 }
