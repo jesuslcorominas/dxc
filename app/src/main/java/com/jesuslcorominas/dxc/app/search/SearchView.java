@@ -28,4 +28,6 @@ public interface SearchView extends MvpView {
     void clearResults();
 
     void refreshItem(Photo photo);
+
+    void onItemClick(Photo photo);
 }

@@ -1,6 +1,8 @@
 package com.jesuslcorominas.dxc.commons.model;
 
-public class PhotoDates {
+import java.io.Serializable;
+
+public class PhotoDates implements Serializable {
 
     private String taken;
 

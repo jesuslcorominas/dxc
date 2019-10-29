@@ -2,7 +2,7 @@ package com.jesuslcorominas.dxc.commons.model;
 
 import java.io.Serializable;
 
-public class PhotoTitle implements Serializable {
+public class PhotoDescription implements Serializable {
 
     private String content;
 

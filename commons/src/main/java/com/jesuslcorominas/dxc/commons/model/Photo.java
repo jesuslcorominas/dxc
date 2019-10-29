@@ -1,9 +1,10 @@
 package com.jesuslcorominas.dxc.commons.model;
 
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
 
-public class Photo {
+public class Photo implements Serializable {
 
     private static final String IMAGE_URL = "https://farm%d.staticflickr.com/%s/%s_%s_%s.jpg";
     private static final String SMALL = "s";
@@ -14,6 +15,7 @@ public class Photo {
     private PhotoOwner photoOwner;
     private PhotoDates photoDates;
     private PhotoTitle photoTitle;
+    private PhotoDescription photoDescription;
 
     private String secret;
     private String server;
@@ -49,6 +51,14 @@ public class Photo {
 
     public void setPhotoTitle(PhotoTitle photoTitle) {
         this.photoTitle = photoTitle;
+    }
+
+    public PhotoDescription getPhotoDescription() {
+        return photoDescription;
+    }
+
+    public void setPhotoDescription(PhotoDescription photoDescription) {
+        this.photoDescription = photoDescription;
     }
 
     public String getSecret() {

@@ -17,8 +17,11 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
 
     private List<Photo> items;
 
-    public PhotosAdapter() {
+    private SearchView searchView;
+
+    public PhotosAdapter(SearchView searchView) {
         items = new ArrayList<>();
+        this.searchView = searchView;
     }
 
     @NonNull
@@ -30,7 +33,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PhotoViewHolder holder, int position) {
-        holder.bind(items.get(position));
+        holder.bind(items.get(position), searchView);
     }
 
     @Override
@@ -47,6 +50,10 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
 
     public void refreshItem(Photo photo) {
         int position = items.indexOf(photo);
+
+        if (position == -1) {
+            return;
+        }
 
         items.set(position, photo);
 

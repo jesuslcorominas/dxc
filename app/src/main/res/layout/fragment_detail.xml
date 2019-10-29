@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/fragment_detail_imageView_photo"
+                android:layout_width="0dp"
+                android:layout_height="128dp"
+                android:layout_weight="5"
+                android:src="@drawable/ic_no_results" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/fragment_detail_textView_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    tools:text="Titulo" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/fragment_detail_textView_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="16sp"
+                    tools:text="Autor" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/fragment_detail_textView_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    tools:text="Fecha" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fragment_detail_textView_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:text="Lorem impsum" />
+
+    </LinearLayout>
+
+
+</ScrollView>
