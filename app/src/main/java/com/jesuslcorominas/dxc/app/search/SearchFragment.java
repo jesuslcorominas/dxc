@@ -1,10 +1,13 @@
 package com.jesuslcorominas.dxc.app.search;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -80,7 +83,18 @@ public class SearchFragment extends MvpFragment<SearchView, SearchPresenter> imp
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
 
-        imageButtonSearch.setOnClickListener(v -> presenter.searchImages(editTextSearch.getText().toString()));
+        editTextSearch.setOnEditorActionListener((v, actionId, event) -> {
+            boolean handled = false;
+
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                performSearch();
+
+                handled = true;
+            }
+            return handled;
+        });
+
+        imageButtonSearch.setOnClickListener(v -> performSearch());
 
         photosAdapter = new PhotosAdapter(this);
 
@@ -166,5 +180,12 @@ public class SearchFragment extends MvpFragment<SearchView, SearchPresenter> imp
 
     public interface SearchFragmentInteractionListener {
         void onPhotoClick(Photo photo);
+    }
+
+    private void performSearch() {
+        InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editTextSearch.getWindowToken(), 0);
+
+        presenter.searchImages(editTextSearch.getText().toString());
     }
 }

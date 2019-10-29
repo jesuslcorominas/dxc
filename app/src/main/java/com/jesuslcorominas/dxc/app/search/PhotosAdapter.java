@@ -51,6 +51,10 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
     public void refreshItem(Photo photo) {
         int position = items.indexOf(photo);
 
+        if (position == -1) {
+            return;
+        }
+
         items.set(position, photo);
 
         notifyItemChanged(position);
@@ -64,9 +68,5 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
         final int size = items.size();
         items.clear();
         notifyItemRangeRemoved(0, size);
-    }
-
-    public interface ItemOnClickListener {
-        void onItemClick(Photo photo);
     }
 }
