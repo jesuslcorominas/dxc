@@ -63,7 +63,7 @@ public class FlickrRestClientImpl implements FlickrRestClient {
 
             @Override
             public void onFailure(Call<SearchResponseDto> call, Throwable throwable) {
-                failureCallback.onFailure("Error al obtener la lista de imágenes: " + throwable.getMessage());
+                failureCallback.onFailure(throwable.getMessage());
             }
         });
     }

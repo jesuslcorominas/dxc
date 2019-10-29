@@ -13,15 +13,44 @@ public class SearchPresenter extends MvpBasePresenter<SearchView> {
     }
 
     public void searchImages(String keyword) {
+        ifViewAttached(view -> {
+            view.clearResults();
+            view.hideNoResults();
+            view.showLoading();
+        });
+
         if (keyword == null || keyword.trim().length() == 0) {
-            // TODO mostrar error?
+            ifViewAttached(view -> {
+                view.hideResults();
+                view.hideLoading();
+                view.showNoResults();
+            });
             return;
         }
 
         searchImagesUseCase.searchImages(keyword, Keys.API_KEY, photos -> {
-            // TODO mostrar imagenes
+            ifViewAttached(view -> {
+                view.hideLoading();
+                view.hideError();
+
+                if (photos == null || photos.size() == 0) {
+                    view.showNoResults();
+                    view.hideResults();
+                } else {
+                    view.addResults(photos);
+                    view.showResults();
+
+                    view.hideNoResults();
+                }
+            });
         }, message -> {
-            // TODO mostrar error
+            ifViewAttached(view -> {
+                view.hideNoResults();
+                view.hideLoading();
+                view.hideResults();
+
+                view.showError(message);
+            });
         });
     }
 }
