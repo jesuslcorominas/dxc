@@ -11,7 +11,7 @@ public class GetImageDetailUseCaseImpl implements GetImageDetailUseCase {
     FlickrDatasource flickrDatasource;
 
     @Override
-    public void getImageDetail(String apiKey, String apiSecret, SuccessCallback successCallback, FailureCallback failureCallback) {
-        flickrDatasource.getImageDetail(apiKey, apiSecret, successCallback::onSuccess, failureCallback::onFailure);
+    public void getImageDetail(String apiKey, SuccessCallback successCallback, FailureCallback failureCallback) {
+        flickrDatasource.getImageDetail(apiKey, successCallback::onSuccess, failureCallback::onFailure);
     }
 }

@@ -5,8 +5,9 @@ public class PhotoDto {
     private String id;
     private String owner;
     private String title;
-
-    private String thumbnail;
+    private String secret;
+    private String server;
+    private int farm;
 
     public String getId() {
         return id;
@@ -32,11 +33,27 @@ public class PhotoDto {
         this.title = title;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getSecret() {
+        return secret;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public String getServer() {
+        return server;
+    }
+
+    public void setServer(String server) {
+        this.server = server;
+    }
+
+    public int getFarm() {
+        return farm;
+    }
+
+    public void setFarm(int farm) {
+        this.farm = farm;
     }
 }

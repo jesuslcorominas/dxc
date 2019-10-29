@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.jesuslcorominas.dxc.data.datasource.net.restclient.FlickrRestClient;
 import com.jesuslcorominas.dxc.data.datasource.net.restclient.impl.FlickrRestClientImpl;
 
+import org.modelmapper.ModelMapper;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
@@ -75,8 +77,8 @@ public class NetModule {
     }
 
     @Provides
-    FlickrRestClient provideFlickrRestClient() {
-        return new FlickrRestClientImpl();
+    FlickrRestClient provideFlickrRestClient(FlickrRestClient.Api api, ModelMapper mapper) {
+        return new FlickrRestClientImpl(api, mapper);
     }
 
 }

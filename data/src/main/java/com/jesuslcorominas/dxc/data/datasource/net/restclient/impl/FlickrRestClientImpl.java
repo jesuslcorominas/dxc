@@ -2,6 +2,7 @@ package com.jesuslcorominas.dxc.data.datasource.net.restclient.impl;
 
 import com.jesuslcorominas.dxc.commons.model.Photo;
 import com.jesuslcorominas.dxc.data.datasource.net.dto.PhotosListDto;
+import com.jesuslcorominas.dxc.data.datasource.net.dto.SearchResponseDto;
 import com.jesuslcorominas.dxc.data.datasource.net.restclient.FlickrRestClient;
 
 import org.modelmapper.ModelMapper;
@@ -17,30 +18,36 @@ import retrofit2.Response;
 
 public class FlickrRestClientImpl implements FlickrRestClient {
 
-    private static final String BASE_URL = "https://www.flickr.com/services/";
+
     private static final String METHOD_LIST = "flickr.photos.search";
     private static final String FORMAT = "json";
     private static final int NO_JSON_CALLBACK = 1;
+    private static final int PER_PAGE = 25;
+
+    private final FlickrRestClient.Api api;
+
+    private final ModelMapper mapper;
 
     @Inject
-    FlickrRestClient.Api api;
-
-    @Inject
-    ModelMapper mapper;
+    public FlickrRestClientImpl(FlickrRestClient.Api api, ModelMapper mapper) {
+        this.api = api;
+        this.mapper = mapper;
+    }
 
     @Override
-    public void searchImages(String keywords, String apiKey, String apiSecret, SearchImagesSuccessCallback successCallback, FailureCallback failureCallback) {
-        api.searchImages(METHOD_LIST, apiKey, keywords, 1, FORMAT, NO_JSON_CALLBACK).enqueue(new Callback<PhotosListDto>() {
+    public void searchImages(String keywords, String apiKey, SearchImagesSuccessCallback successCallback, FailureCallback failureCallback) {
+        api.searchImages(METHOD_LIST, apiKey, keywords, 1, FORMAT, NO_JSON_CALLBACK, PER_PAGE).enqueue(new Callback<SearchResponseDto>() {
 
             @Override
-            public void onResponse(Call<PhotosListDto> call, Response<PhotosListDto> response) {
+            public void onResponse(Call<SearchResponseDto> call, Response<SearchResponseDto> response) {
                 if (!response.isSuccessful()) {
                     failureCallback.onFailure("HTTP Error: " + response.code());
                     return;
                 }
 
                 if (response.body() != null) {
-                    PhotosListDto photosListDto = response.body();
+                    SearchResponseDto searchResponseDto = response.body();
+                    PhotosListDto photosListDto = searchResponseDto.getPhotosListDto();
 
                     List<Photo> photos = mapper.map(photosListDto.getPhotos(), new TypeToken<List<Photo>>() {
                     }.getType());
@@ -55,14 +62,14 @@ public class FlickrRestClientImpl implements FlickrRestClient {
             }
 
             @Override
-            public void onFailure(Call<PhotosListDto> call, Throwable throwable) {
+            public void onFailure(Call<SearchResponseDto> call, Throwable throwable) {
                 failureCallback.onFailure("Error al obtener la lista de imágenes: " + throwable.getMessage());
             }
         });
     }
 
     @Override
-    public void getImageDetail(String apiKey, String apiSecret, GetImageDetailSuccessCallback successCallback, FailureCallback failureCallback) {
+    public void getImageDetail(String apiKey, GetImageDetailSuccessCallback successCallback, FailureCallback failureCallback) {
 
     }
 }

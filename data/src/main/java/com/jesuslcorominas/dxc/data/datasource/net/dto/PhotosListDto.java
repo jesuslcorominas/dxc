@@ -6,54 +6,11 @@ import java.util.List;
 
 public class PhotosListDto {
 
-    private int page;
-    private String pages;
-    private int perpage;
-    private String total;
-    private String stat;
+    // TODO si se quisiera hacer la paginacion habria que modificar esta clase para guardar datos
+    // de la pagina actual y paginas totales
 
     @SerializedName("photo")
     private List<PhotoDto> photos;
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public String getPages() {
-        return pages;
-    }
-
-    public void setPages(String pages) {
-        this.pages = pages;
-    }
-
-    public int getPerpage() {
-        return perpage;
-    }
-
-    public void setPerpage(int perpage) {
-        this.perpage = perpage;
-    }
-
-    public String getTotal() {
-        return total;
-    }
-
-    public void setTotal(String total) {
-        this.total = total;
-    }
-
-    public String getStat() {
-        return stat;
-    }
-
-    public void setStat(String stat) {
-        this.stat = stat;
-    }
 
     public List<PhotoDto> getPhotos() {
         return photos;

@@ -40,6 +40,10 @@ allprojects {
         junit4Version = '1.5'
         mockitoVersion = '2.7.21'
         robolectricVersion = '3.1.4'
+
+        mosbyVersion = '3.1.1'
+
+        butterKnifeVersion = '10.0.0'
     }
 }
 
