@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 
 public class SearchFragment extends MvpFragment<SearchView, SearchPresenter> implements SearchView {
 
+    // region View
     @BindView(R.id.fragment_search_editText_search)
     EditText editTextSearch;
 
@@ -49,6 +50,7 @@ public class SearchFragment extends MvpFragment<SearchView, SearchPresenter> imp
 
     @BindView(R.id.fragment_search_textView_error)
     TextView textViewError;
+    // endregion
 
     private SearchFragmentInteractionListener listener;
 
@@ -80,7 +82,7 @@ public class SearchFragment extends MvpFragment<SearchView, SearchPresenter> imp
 
         imageButtonSearch.setOnClickListener(v -> presenter.searchImages(editTextSearch.getText().toString()));
 
-        photosAdapter = new PhotosAdapter();
+        photosAdapter = new PhotosAdapter(this);
 
         recyclerViewResults.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewResults.setAdapter(photosAdapter);
@@ -107,7 +109,6 @@ public class SearchFragment extends MvpFragment<SearchView, SearchPresenter> imp
     @Override
     public void hideNoResults() {
         linearLayoutNoResults.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -154,6 +155,11 @@ public class SearchFragment extends MvpFragment<SearchView, SearchPresenter> imp
     @Override
     public void refreshItem(Photo photo) {
         photosAdapter.refreshItem(photo);
+    }
+
+    @Override
+    public void onItemClick(Photo photo) {
+        Objects.requireNonNull(listener).onPhotoClick(photo);
     }
 
     // endregion

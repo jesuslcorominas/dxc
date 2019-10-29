@@ -1,6 +1,8 @@
 package com.jesuslcorominas.dxc.commons.model;
 
-public class PhotoOwner {
+import java.io.Serializable;
+
+public class PhotoOwner implements Serializable {
 
     private String username;
 

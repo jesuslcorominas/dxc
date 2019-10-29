@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jesuslcorominas.dxc.app.R;
+import com.jesuslcorominas.dxc.app.detail.DetailActivity;
 import com.jesuslcorominas.dxc.commons.model.Photo;
 
 public class SearchActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInteractionListener {
@@ -23,7 +24,7 @@ public class SearchActivity extends AppCompatActivity implements SearchFragment.
 
     @Override
     public void onPhotoClick(Photo photo) {
-        // TODO navegar a la pantalla de detalle
+        DetailActivity.start(this, photo);
     }
 
     //endregion

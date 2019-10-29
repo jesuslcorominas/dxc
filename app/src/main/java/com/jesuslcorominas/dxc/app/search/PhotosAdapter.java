@@ -17,8 +17,11 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
 
     private List<Photo> items;
 
-    public PhotosAdapter() {
+    private SearchView searchView;
+
+    public PhotosAdapter(SearchView searchView) {
         items = new ArrayList<>();
+        this.searchView = searchView;
     }
 
     @NonNull
@@ -30,7 +33,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PhotoViewHolder holder, int position) {
-        holder.bind(items.get(position));
+        holder.bind(items.get(position), searchView);
     }
 
     @Override
@@ -61,5 +64,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
         final int size = items.size();
         items.clear();
         notifyItemRangeRemoved(0, size);
+    }
+
+    public interface ItemOnClickListener {
+        void onItemClick(Photo photo);
     }
 }

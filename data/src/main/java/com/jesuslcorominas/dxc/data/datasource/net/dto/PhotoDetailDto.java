@@ -15,6 +15,9 @@ public class PhotoDetailDto {
     @SerializedName("dates")
     private PhotoDatesDto photoDates;
 
+    @SerializedName("description")
+    private PhotoDescriptionDto photoDescription;
+
     private String secret;
     private String server;
     private int farm;
@@ -49,6 +52,14 @@ public class PhotoDetailDto {
 
     public void setPhotoDates(PhotoDatesDto photoDates) {
         this.photoDates = photoDates;
+    }
+
+    public PhotoDescriptionDto getPhotoDescription() {
+        return photoDescription;
+    }
+
+    public void setPhotoDescription(PhotoDescriptionDto photoDescription) {
+        this.photoDescription = photoDescription;
     }
 
     public String getSecret() {

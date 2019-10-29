@@ -1,9 +1,10 @@
-package com.jesuslcorominas.dxc.commons.model;
+package com.jesuslcorominas.dxc.data.datasource.net.dto;
 
-import java.io.Serializable;
+import com.google.gson.annotations.SerializedName;
 
-public class PhotoTitle implements Serializable {
+public class PhotoDescriptionDto {
 
+    @SerializedName("_content")
     private String content;
 
     public String getContent() {
