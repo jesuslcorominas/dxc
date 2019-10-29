@@ -2,14 +2,18 @@ package com.jesuslcorominas.dxc.app.search;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.jesuslcorominas.dxc.app.util.Keys;
-import com.jesuslcorominas.dxc.model.usecase.SearchImagesUseCase;
+import com.jesuslcorominas.dxc.commons.model.Photo;
+import com.jesuslcorominas.dxc.model.usecase.GetPhotoDetailUseCase;
+import com.jesuslcorominas.dxc.model.usecase.SearchPhotosUseCase;
 
 public class SearchPresenter extends MvpBasePresenter<SearchView> {
 
-    private final SearchImagesUseCase searchImagesUseCase;
+    private final SearchPhotosUseCase searchPhotosUseCase;
+    private final GetPhotoDetailUseCase getPhotoDetailUseCase;
 
-    public SearchPresenter(SearchImagesUseCase searchImagesUseCase) {
-        this.searchImagesUseCase = searchImagesUseCase;
+    public SearchPresenter(SearchPhotosUseCase searchPhotosUseCase, GetPhotoDetailUseCase getPhotoDetailUseCase) {
+        this.searchPhotosUseCase = searchPhotosUseCase;
+        this.getPhotoDetailUseCase = getPhotoDetailUseCase;
     }
 
     public void searchImages(String keyword) {
@@ -28,7 +32,7 @@ public class SearchPresenter extends MvpBasePresenter<SearchView> {
             return;
         }
 
-        searchImagesUseCase.searchImages(keyword, Keys.API_KEY, photos -> {
+        searchPhotosUseCase.searchPhotos(keyword, Keys.API_KEY, photos -> {
             ifViewAttached(view -> {
                 view.hideLoading();
                 view.hideError();
@@ -41,6 +45,15 @@ public class SearchPresenter extends MvpBasePresenter<SearchView> {
                     view.showResults();
 
                     view.hideNoResults();
+
+                    for (Photo p : photos) {
+                        getPhotoDetailUseCase.getPhotoDetail(p, Keys.API_KEY, photo -> {
+                            ifViewAttached(view1 -> view.refreshItem(photo));
+                        }, message -> {
+
+                        });
+                    }
+
                 }
             });
         }, message -> {

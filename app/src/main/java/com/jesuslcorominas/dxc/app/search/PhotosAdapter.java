@@ -45,7 +45,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
         notifyItemRangeChanged(from, photos.size());
     }
 
-    public void refreshItem(int position, Photo photo) {
+    public void refreshItem(Photo photo) {
+        int position = items.indexOf(photo);
+
         items.set(position, photo);
 
         notifyItemChanged(position);

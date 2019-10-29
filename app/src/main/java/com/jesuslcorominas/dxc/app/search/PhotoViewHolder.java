@@ -34,7 +34,7 @@ public class PhotoViewHolder extends RecyclerView.ViewHolder {
     public void bind(Photo photo) {
         Picasso.get().load(photo.getThumbnail()).into(imageViewThumb);
 
-        textViewTitle.setText(photo.getTitle());
-        textViewAuthor.setText(photo.getOwner());
+        textViewTitle.setText(photo.getPhotoTitle() == null ? "" : photo.getPhotoTitle().getContent());
+        textViewAuthor.setText(photo.getPhotoOwner() == null ? "" : photo.getPhotoOwner().getUsername());
     }
 }

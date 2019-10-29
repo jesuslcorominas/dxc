@@ -10,13 +10,13 @@ public class PhotosListDto {
     // de la pagina actual y paginas totales
 
     @SerializedName("photo")
-    private List<PhotoDto> photos;
+    private List<PhotoSearchResultDto> photos;
 
-    public List<PhotoDto> getPhotos() {
+    public List<PhotoSearchResultDto> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<PhotoDto> photos) {
+    public void setPhotos(List<PhotoSearchResultDto> photos) {
         this.photos = photos;
     }
 }

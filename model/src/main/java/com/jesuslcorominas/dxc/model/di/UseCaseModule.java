@@ -1,10 +1,10 @@
 package com.jesuslcorominas.dxc.model.di;
 
 import com.jesuslcorominas.dxc.model.datasource.FlickrDatasource;
-import com.jesuslcorominas.dxc.model.usecase.GetImageDetailUseCase;
-import com.jesuslcorominas.dxc.model.usecase.SearchImagesUseCase;
-import com.jesuslcorominas.dxc.model.usecase.impl.GetImageDetailUseCaseImpl;
-import com.jesuslcorominas.dxc.model.usecase.impl.SearchImagesUseCaseImpl;
+import com.jesuslcorominas.dxc.model.usecase.GetPhotoDetailUseCase;
+import com.jesuslcorominas.dxc.model.usecase.SearchPhotosUseCase;
+import com.jesuslcorominas.dxc.model.usecase.impl.GetPhotoDetailUseCaseImpl;
+import com.jesuslcorominas.dxc.model.usecase.impl.SearchPhotosUseCaseImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,12 +13,12 @@ import dagger.Provides;
 public class UseCaseModule {
 
     @Provides
-    SearchImagesUseCase provideSearchImagesUseCase(FlickrDatasource flickrDatasource) {
-        return new SearchImagesUseCaseImpl(flickrDatasource);
+    SearchPhotosUseCase provideSearchPhotosUseCase(FlickrDatasource flickrDatasource) {
+        return new SearchPhotosUseCaseImpl(flickrDatasource);
     }
 
     @Provides
-    GetImageDetailUseCase provideGetImageDetailUseCase() {
-        return new GetImageDetailUseCaseImpl();
+    GetPhotoDetailUseCase provideGetPhotoDetailUseCase(FlickrDatasource flickrDatasource) {
+        return new GetPhotoDetailUseCaseImpl(flickrDatasource);
     }
 }

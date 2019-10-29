@@ -1,6 +1,8 @@
 package com.jesuslcorominas.dxc.data.datasource.net.restclient.impl;
 
 import com.jesuslcorominas.dxc.commons.model.Photo;
+import com.jesuslcorominas.dxc.data.datasource.net.dto.GetPhotoDetailResponseDto;
+import com.jesuslcorominas.dxc.data.datasource.net.dto.PhotoDetailDto;
 import com.jesuslcorominas.dxc.data.datasource.net.dto.PhotosListDto;
 import com.jesuslcorominas.dxc.data.datasource.net.dto.SearchResponseDto;
 import com.jesuslcorominas.dxc.data.datasource.net.restclient.FlickrRestClient;
@@ -20,6 +22,7 @@ public class FlickrRestClientImpl implements FlickrRestClient {
 
 
     private static final String METHOD_LIST = "flickr.photos.search";
+    private static final String METHOD_DETAIL = "flickr.photos.getInfo";
     private static final String FORMAT = "json";
     private static final int NO_JSON_CALLBACK = 1;
     private static final int PER_PAGE = 25;
@@ -35,8 +38,8 @@ public class FlickrRestClientImpl implements FlickrRestClient {
     }
 
     @Override
-    public void searchImages(String keywords, String apiKey, SearchImagesSuccessCallback successCallback, FailureCallback failureCallback) {
-        api.searchImages(METHOD_LIST, apiKey, keywords, 1, FORMAT, NO_JSON_CALLBACK, PER_PAGE).enqueue(new Callback<SearchResponseDto>() {
+    public void searchPhotos(String keywords, String apiKey, SearchPhotosSuccessCallback successCallback, FailureCallback failureCallback) {
+        api.searchPhotos(METHOD_LIST, apiKey, keywords, 1, FORMAT, NO_JSON_CALLBACK, PER_PAGE).enqueue(new Callback<SearchResponseDto>() {
 
             @Override
             public void onResponse(Call<SearchResponseDto> call, Response<SearchResponseDto> response) {
@@ -54,11 +57,10 @@ public class FlickrRestClientImpl implements FlickrRestClient {
 
                     successCallback.onSuccess(photos);
                     return;
-
                 }
 
                 // No deberiamos llegar nunca hasta aqui
-                failureCallback.onFailure("La petición de searchImages no ha devuelto resultados");
+                failureCallback.onFailure("La petición de searchPhotos no ha devuelto resultados");
             }
 
             @Override
@@ -69,7 +71,33 @@ public class FlickrRestClientImpl implements FlickrRestClient {
     }
 
     @Override
-    public void getImageDetail(String apiKey, GetImageDetailSuccessCallback successCallback, FailureCallback failureCallback) {
+    public void getPhotoDetail(Photo photo, String apiKey, GetPhotoDetailSuccessCallback successCallback, FailureCallback failureCallback) {
+        api.getPhotoDetail(METHOD_DETAIL, apiKey, photo.getId(), photo.getSecret(), FORMAT, NO_JSON_CALLBACK).enqueue(new Callback<GetPhotoDetailResponseDto>() {
+            @Override
+            public void onResponse(Call<GetPhotoDetailResponseDto> call, Response<GetPhotoDetailResponseDto> response) {
+                if (!response.isSuccessful()) {
+                    failureCallback.onFailure("HTTP Error: " + response.code());
+                    return;
+                }
 
+                if (response.body() != null) {
+                    GetPhotoDetailResponseDto getPhotoDetailResponseDto = response.body();
+
+                    PhotoDetailDto p = getPhotoDetailResponseDto.getPhotoDetailDto();
+                    if (p != null) {
+                        successCallback.onSuccess(mapper.map(p, Photo.class));
+                        return;
+                    }
+                }
+
+                // No deberiamos llegar nunca hasta aqui
+                failureCallback.onFailure("La petición de getPhotoDetail no ha devuelto resultado");
+            }
+
+            @Override
+            public void onFailure(Call<GetPhotoDetailResponseDto> call, Throwable throwable) {
+                failureCallback.onFailure(throwable.getMessage());
+            }
+        });
     }
 }

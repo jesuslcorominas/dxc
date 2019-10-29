@@ -1,6 +1,7 @@
 package com.jesuslcorominas.dxc.commons.model;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class Photo {
 
@@ -9,8 +10,11 @@ public class Photo {
     private static final String BIG = "b";
 
     private String id;
-    private String owner;
-    private String title;
+
+    private PhotoOwner photoOwner;
+    private PhotoDates photoDates;
+    private PhotoTitle photoTitle;
+
     private String secret;
     private String server;
     private int farm;
@@ -23,20 +27,28 @@ public class Photo {
         this.id = id;
     }
 
-    public String getOwner() {
-        return owner;
+    public PhotoOwner getPhotoOwner() {
+        return photoOwner;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setPhotoOwner(PhotoOwner photoOwner) {
+        this.photoOwner = photoOwner;
     }
 
-    public String getTitle() {
-        return title;
+    public PhotoDates getPhotoDates() {
+        return photoDates;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPhotoDates(PhotoDates photoDates) {
+        this.photoDates = photoDates;
+    }
+
+    public PhotoTitle getPhotoTitle() {
+        return photoTitle;
+    }
+
+    public void setPhotoTitle(PhotoTitle photoTitle) {
+        this.photoTitle = photoTitle;
     }
 
     public String getSecret() {
@@ -75,4 +87,16 @@ public class Photo {
         return String.format(Locale.getDefault(), IMAGE_URL, farm, server, id, secret, size);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Photo)) return false;
+        Photo photo = (Photo) o;
+        return getId().equals(photo.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

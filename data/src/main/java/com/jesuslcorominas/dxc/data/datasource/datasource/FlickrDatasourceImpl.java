@@ -1,5 +1,6 @@
 package com.jesuslcorominas.dxc.data.datasource.datasource;
 
+import com.jesuslcorominas.dxc.commons.model.Photo;
 import com.jesuslcorominas.dxc.data.datasource.net.restclient.FlickrRestClient;
 import com.jesuslcorominas.dxc.model.datasource.FlickrDatasource;
 
@@ -12,12 +13,12 @@ public class FlickrDatasourceImpl implements FlickrDatasource {
     }
 
     @Override
-    public void searchImages(String keywords, String apiKey, SearchImagesSuccessCallback successCallback, FailureCallback failureCallback) {
-        flickrRestClient.searchImages(keywords, apiKey, successCallback::onSuccess, failureCallback::onFailure);
+    public void searchPhotos(String keywords, String apiKey, SearchPhotosSuccessCallback successCallback, FailureCallback failureCallback) {
+        flickrRestClient.searchPhotos(keywords, apiKey, successCallback::onSuccess, failureCallback::onFailure);
     }
 
     @Override
-    public void getImageDetail(String apiKey, GetImageDetailSuccessCallback successCallback, FailureCallback failureCallback) {
-        flickrRestClient.getImageDetail(apiKey, successCallback::onSuccess, failureCallback::onFailure);
+    public void getPhotoDetail(Photo photo, String apiKey, GetPhotoDetailSuccessCallback successCallback, FailureCallback failureCallback) {
+        flickrRestClient.getPhotoDetail(photo, apiKey, successCallback::onSuccess, failureCallback::onFailure);
     }
 }

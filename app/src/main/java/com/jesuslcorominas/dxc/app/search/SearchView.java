@@ -26,4 +26,6 @@ public interface SearchView extends MvpView {
     void hideError();
 
     void clearResults();
+
+    void refreshItem(Photo photo);
 }

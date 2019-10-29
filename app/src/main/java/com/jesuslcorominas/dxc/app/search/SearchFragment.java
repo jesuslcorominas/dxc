@@ -151,6 +151,11 @@ public class SearchFragment extends MvpFragment<SearchView, SearchPresenter> imp
         photosAdapter.clear();
     }
 
+    @Override
+    public void refreshItem(Photo photo) {
+        photosAdapter.refreshItem(photo);
+    }
+
     // endregion
 
     public interface SearchFragmentInteractionListener {
